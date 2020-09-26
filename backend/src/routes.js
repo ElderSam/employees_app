@@ -1,47 +1,14 @@
 const express = require('express'); //adiciona o express
-
 const routes = express.Router();
+
+require('./controllers/Employees')
 
 // Primeira rota
 app.get("/", (req, res) => { res.send('Server is running!'); });
 
 app.get("/api", (req, res) => {
 
-    var file = 'src/bd_funcionarios.txt';
-    readFile(file);
 
-    function readFile(file) {
-        
-        var arr = [];
-
-        const readline = require('readline');
-        const fs = require('fs');
-
-        const rl = readline.createInterface({
-            input: fs.createReadStream(file)
-        });
-
-        rl.on('line', function (line) { // para cada linha do arquivo
-
-            if(line) { //se a linha não está vazia
-                //console.log('Line from file:', line);
-                arr.push(line);
-            }
-        });
-
-        rl.on('close', function() { // quando termina a leitura do arquivo
-            
-            //console.log('arr', arr);
-            
-            let columns = arr.shift(0); //remove o primeiro elemento do array e retorna para columns
-            console.log(columns)
-            columns = columns.split(';')
-
-            console.log(arr)          
-            console.log(arr.length)
-        });
-    }
-    
 });
 
 module.exports = routes;
