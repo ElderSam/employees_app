@@ -31,7 +31,14 @@ app.get("/api", (req, res) => {
 
         rl.on('close', function() { // quando termina a leitura do arquivo
             
-            console.log('arr', arr);
+            //console.log('arr', arr);
+            
+            let columns = arr.shift(0); //remove o primeiro elemento do array e retorna para columns
+            console.log(columns)
+            columns = columns.split(';')
+
+            console.log(arr)          
+            console.log(arr.length)
         });
     }
     
