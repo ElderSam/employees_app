@@ -7,12 +7,11 @@ const Employee = require('./controllers/Employees')
 app.get("/", (req, res) => { res.send('Server is running!'); });
 
 app.get("/api/employees", (req, res) => {
-    
+
     e1 = new Employee()
-    data = e1.getData();
+    data = e1.getData(req.query);
 
-    res.send(JSON.stringify(data))
-
+    res.send(data)
 });
 
 module.exports = routes;

@@ -1,17 +1,25 @@
-let Employee = function() {
+let Employee = function() { // Classe Employee (Funcionario)
     
-    this.getData = () => { /* Método getData ---------------------------------------- */
+    this.getData = (query='{}') => { /* Método getData ---------------------------------------- */
+        
+        response = this.getJSON();  
+
+        if(JSON.stringify(query) != '{}'){ //verifica se o objeto query não é vazio
+            response = this.filterData(query, response); //filtra os funcionários
+        }
+        
+        return response
+    }
+
+    this.getJSON = () => { /* Método getJSON (pega todos os funcionários) ---------------------------------------- */
         
         var contentFilePath = 'src/bd_funcionarios.txt';
         data = this.loadFile(contentFilePath)
-        //console.log(data)
 
         arr = data.split('\n');
-
         arr = arr.filter((item) => item != false) //filtra todas os item (linhas) que não estão vazias
 
         let columns = arr.shift(0); //remove o primeiro elemento do array e retorna para columns
-
         columns = columns.replace('\r', '').split(';') // separa os itens do array por ;
 
         const arrObj = arr.map((item) => {
@@ -44,6 +52,29 @@ let Employee = function() {
         }, {});
 
         return myObj;  
+    }
+
+    this.filterData = (query, data) => {  /* Método filterData ---------------------------------------- */
+
+        //console.log(query)
+        let arrQuery = [];
+
+        for(var key in query){ // percorre os atrbutos do objeto
+            arrQuery.push([key, query[key]]) // coloca em cada posição do array [key, value]
+        }
+
+        /*console.log('searching for: ')
+        console.log(arrQuery)*/
+
+        function filtraPorCampos(item, arrQueries){ //filtra por qualquer campo, mas apenas um por vez
+            query = arrQueries[0];
+            key = query[0];
+            value = query[1];
+
+            return item[key] === value
+        } 
+
+        return data.filter((item) => filtraPorCampos(item, arrQuery))
     }
 };
 
