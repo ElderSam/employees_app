@@ -6,10 +6,10 @@ const Employee = require('./controllers/Employees')
 // Primeira rota
 app.get("/", (req, res) => { res.send('Server is running!'); });
 
-app.get("/api", (req, res) => {
+app.get("/api/employees", (req, res) => {
     
     e1 = new Employee()
-    data = e1.getJSON();
+    data = e1.getData();
 
     res.send(JSON.stringify(data))
 

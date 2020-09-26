@@ -1,6 +1,6 @@
 let Employee = function() {
     
-    this.getJSON = () => { /* Método getJSON ---------------------------------------- */
+    this.getData = () => { /* Método getData ---------------------------------------- */
         
         var contentFilePath = 'src/bd_funcionarios.txt';
         data = this.loadFile(contentFilePath)
@@ -14,12 +14,11 @@ let Employee = function() {
 
         columns = columns.replace('\r', '').split(';') // separa os itens do array por ;
 
-        //const objData = arr.map((item) => {
-        // arrayToJSON(item)
-        // });
+        const arrObj = arr.map((item) => {
+            return this.arrayToJSON(columns, item)
+        });
     
-        return this.arrayToJSON(columns, arr[0]);
-        
+        return arrObj;
     }
 
     this.loadFile = (contentFilePath) => { /* Método loadFile ---------------------------------------- */
@@ -32,9 +31,7 @@ let Employee = function() {
         obj = {};
 
         item = item.replace('\r', '');
-        arrLine = item.split(';');
-    
-        //console.log(arrLine)
+        arrLine = item.split(';'); // transforma a linha (string) em um array
 
         let i = 0;
 
@@ -43,15 +40,11 @@ let Employee = function() {
             obj[key] = value
             i++;
 
-            //console.log(`${key}: ${value}`);
             return obj
         }, {});
 
-        console.log(myObj)
-        return myObj
-        //console.log(JSON.stringify(myObj))     
+        return myObj;  
     }
 };
-
 
 module.exports = Employee;
