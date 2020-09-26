@@ -1,6 +1,6 @@
 let Employee = function() {
     
-    this.getJSON = () => {
+    this.getJSON = () => { /* Método getJSON ---------------------------------------- */
         
         var contentFilePath = 'src/bd_funcionarios.txt';
         data = this.loadFile(contentFilePath)
@@ -18,15 +18,40 @@ let Employee = function() {
         // arrayToJSON(item)
         // });
     
-        //arrayToJSON(arr[0]);
-        return arr;
+        return this.arrayToJSON(columns, arr[0]);
+        
     }
 
-    this.loadFile = (contentFilePath) => {
+    this.loadFile = (contentFilePath) => { /* Método loadFile ---------------------------------------- */
         const fs = require('fs');
         const content = fs.readFileSync(contentFilePath, 'utf-8');
         return content;
     }
+     
+    this.arrayToJSON = (columns, item) => { /* Método arrayToJSON ---------------------------------------- */
+        obj = {};
+
+        item = item.replace('\r', '');
+        arrLine = item.split(';');
+    
+        //console.log(arrLine)
+
+        let i = 0;
+
+        const myObj = arrLine.reduce((obj, value) => { //retorna um objeto com as propriedades
+            key = columns[i];
+            obj[key] = value
+            i++;
+
+            //console.log(`${key}: ${value}`);
+            return obj
+        }, {});
+
+        console.log(myObj)
+        return myObj
+        //console.log(JSON.stringify(myObj))     
+    }
 };
+
 
 module.exports = Employee;

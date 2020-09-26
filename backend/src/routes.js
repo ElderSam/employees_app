@@ -10,8 +10,7 @@ app.get("/api", (req, res) => {
     
     e1 = new Employee()
     data = e1.getJSON();
-    
-    console.log(data)
+
     res.send(JSON.stringify(data))
 
 });
