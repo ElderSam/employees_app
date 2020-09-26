@@ -1,9 +1,11 @@
 const express = require('express'); //adiciona o express
 
-app = express();
+app = express(); // inicia o app
 
-app.get("/", (req, res) => {
-    res.send('Server is running!');
-});
+app.use('/api', require('./src/routes'));
+
+
+
+
 
 app.listen(3001); //inicia o servidor na porta 3001
