@@ -56,9 +56,18 @@ let Employee = function() { // Classe Employee (Funcionario)
 
     this.filterData = (query, data) => {  /* Método filterData ---------------------------------------- */
 
+        if(query.groupByUfNasc) { // quando quer retornar a quantidade de funcionários em um Estado (UfNasc)
+
+            const dataByUfNasc = data.filter((item) => (item.UfNasc == query.groupByUfNasc))
+            let qtd = JSON.stringify(dataByUfNasc.length); 
+            objFiltered = { qtdEmployees: qtd}
+            
+            return objFiltered
+        }
+
         let arrQuery = [];
 
-        for(var key in query){ // percorre os atrbutos do objeto
+        for(var key in query){ // percorre os atributos do objeto
             arrQuery.push([key, query[key]]) // coloca em cada posição do array [key, value]
         }
 
@@ -80,7 +89,7 @@ let Employee = function() { // Classe Employee (Funcionario)
         }
 
         function filtraPorCampos(item, arrQueries){ //filtra por qualquer campo, mas apenas um por vez
-            query = arrQueries[0];
+            let query = arrQueries[0];
             key = query[0];
             value = query[1];
 

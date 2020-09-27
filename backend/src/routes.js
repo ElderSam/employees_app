@@ -10,7 +10,7 @@ app.get("/api/employees", (req, res) => {
 
     e1 = new Employee()
     data = e1.getData(req.query);
-    
+
     res.send(data)
 });
 
