@@ -1,14 +1,50 @@
 const arquivo = require('./fileManager');
 
-const getData = (query='{}') => { /* Método getData ---------------------------------------- */
+const getEmployees = (query='{}') => { /* Método getEmployees ---------------------------------------- */
     
-    response = arquivo.load(); 
+    employees = arquivo.load(); 
 
     if(JSON.stringify(query) != '{}'){ //verifica se o objeto query não é vazio
-        response = filterData(query, response); //filtra os funcionários
+        employees = filterData(query, employees); //filtra os funcionários
     }
     
-    return response;  
+    return employees;  
+    //return Object.values(employees);  
+}
+
+/*function getEmployee(Cpf) {
+    employees = arquivo.load()
+    return employee[Cpf] || {}
+}*/
+
+function saveEmployee(employee) { //insert and update
+
+    employees = arquivo.load() //carrega um array através do JSON de funcionários
+
+    if(!employee.Cpf) return
+
+    const x = employees.filter(({ Cpf }) => Cpf == employee.Cpf)
+
+    if(x.length == 0){ //se nao existe um objeto com esse Cpf, então insere um novo
+        console.log('insere')
+        employees.push(employee)
+
+    }else{ //atualiza
+        console.log('atualiza')
+
+        employees = employees.map((item) => {
+            if(item.Cpf == employee.Cpf) {
+                item = employee
+            }
+         
+            return item;
+        })
+    }
+
+    console.log('Cpf', employee.Cpf)
+
+    arquivo.save(employees)
+    return employee //retorna o funcionário inserido/atualizado
 }
 
 const filterData = (query, data) => {  /* Método filterData ---------------------------------------- */
@@ -58,35 +94,6 @@ const filterData = (query, data) => {  /* Método filterData -------------------
 }
 
 module.exports = {
-    getData
-};
-
-/*
-const employees = {}
-
-function saveEmployee(employee) { //insert and update
-    if(!employee.Cpf) return
-    employees[employee.Cpf] = employee
-    return employee
-}
-
-function getEmployee(Cpf) {
-    return employee[Cpf] || {}
-}
-
-function getEmployees() {
-    return Object.values(employees)
-}
-
-function deleteEmployee(Cpf) {
-    const employee = employees[Cpf]
-    delete employees[Cpf]
-    return employee
-}
-
-module.exports = {
-    saveEmployee,
-    getEmployee,
     getEmployees,
-    deleteEmployee
-}*/
+    saveEmployee
+}
