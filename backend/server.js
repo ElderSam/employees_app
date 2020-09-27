@@ -4,8 +4,8 @@ app = express(); // inicia o app
 
 app.use('/api', require('./src/routes'));
 
-
-
-
-
-app.listen(3001); //inicia o servidor na porta 3001
+porta = 3001
+//inicia o servidor na porta 3001
+app.listen(porta, () => {
+    console.log(`Servidor está executando na porta ${porta}.`)
+}); 
