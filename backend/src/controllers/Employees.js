@@ -56,15 +56,28 @@ let Employee = function() { // Classe Employee (Funcionario)
 
     this.filterData = (query, data) => {  /* Método filterData ---------------------------------------- */
 
-        //console.log(query)
         let arrQuery = [];
 
         for(var key in query){ // percorre os atrbutos do objeto
             arrQuery.push([key, query[key]]) // coloca em cada posição do array [key, value]
         }
 
-        /*console.log('searching for: ')
-        console.log(arrQuery)*/
+        if(query.SalarioMin) { //se quer filtrar por faixa salarial
+
+            const filtraFaixaSalarial = (salario) => {
+                salario = parseFloat(salario);
+                min = parseFloat(query.SalarioMin);
+                max = parseFloat(query.SalarioMax);
+                
+                if((salario >= min) && (salario <= max)) {
+                    return true;
+                }else {
+                    return false
+                }
+            }
+
+            return data.filter(({ Salario }) => filtraFaixaSalarial(Salario));      
+        }
 
         function filtraPorCampos(item, arrQueries){ //filtra por qualquer campo, mas apenas um por vez
             query = arrQueries[0];
