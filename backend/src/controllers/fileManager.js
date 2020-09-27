@@ -1,7 +1,16 @@
+const fs = require('fs');
+const contentFilePath = './employees.json';
+
 const loadFile = (contentFilePath) => { /* Método loadFile ---------------------------------------- */
-    const fs = require('fs');
     const content = fs.readFileSync(contentFilePath, 'utf-8');
     return content;
+}
+
+const save = (content) => {
+    const contentString = JSON.stringify(content)
+    return fs.writeFileSync(contentFilePath, contentString, err => { //salva o conteúdo em disco
+        console.log(err || 'Arquivo salvo!')
+    })
 }
 
 const getJSON = () => { /* Método getJSON (pega todos os funcionários) ---------------------------------------- */
@@ -43,6 +52,7 @@ const arrayToJSON = (columns, item) => { /* Método arrayToJSON ----------------
 
 module.exports = {
     loadFile,
+    save,
     getJSON,
-    arrayToJSON
+    arrayToJSON,
 }

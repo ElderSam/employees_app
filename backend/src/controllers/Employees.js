@@ -8,7 +8,7 @@ const getData = (query='{}') => { /* Método getData ---------------------------
         response = filterData(query, response); //filtra os funcionários
     }
     
-    return response
+    return arquivo.save(response)  
 }
 
 const filterData = (query, data) => {  /* Método filterData ---------------------------------------- */
@@ -59,3 +59,33 @@ const filterData = (query, data) => {  /* Método filterData -------------------
 module.exports = {
     getData
 };
+
+/*
+const employees = {}
+
+function saveEmployee(employee) { //insert and update
+    if(!employee.Cpf) return
+    employees[employee.Cpf] = employee
+    return employee
+}
+
+function getEmployee(Cpf) {
+    return employee[Cpf] || {}
+}
+
+function getEmployees() {
+    return Object.values(employees)
+}
+
+function deleteEmployee(Cpf) {
+    const employee = employees[Cpf]
+    delete employees[Cpf]
+    return employee
+}
+
+module.exports = {
+    saveEmployee,
+    getEmployee,
+    getEmployees,
+    deleteEmployee
+}*/
