@@ -8,6 +8,20 @@ $ npm run dev
 
 ------------------------------------------------------------
 # Rotas da API;
+   
+   Documentação da API;
+    Utilizei o Insomnia para documentar a API, caso queira utilizar para facilitar, segue o link;
+        https://insomnia.rest/download/
+
+    Para importar o arquivo da documentação dentro do Insomnia, basta abrir o programa e seguir os passos;
+        1. pegue o arquivo 'Insomnia_API_doc.json' (dentro desta pasta) e arraste para o menu esquerdo do Insomnia até aparecer 'Mover'.
+        2. Solte o arquivo e confirme a importação com 'OK'.
+        3. Agora pode entrar na pasta (Funcionarios_App) da Documentação dentro do Insomnia e testar a API.
+
+
+    ---------------------------------
+    Como usar as rotas da API;
+
     Listar todos os funcionários
     http://localhost:3001/api/employees (GET)
 
