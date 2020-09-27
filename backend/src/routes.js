@@ -28,4 +28,10 @@ app.post('/api/employees', (req, res, next) => { //Salvar
     res.send(response)
 })
 
+app.delete('/api/employees/:Cpf', (req, res, next) => {
+    const response = employee.deleteEmployee(req.params.Cpf)
+    res.send(response) // JSON
+})
+
+
 module.exports = routes;

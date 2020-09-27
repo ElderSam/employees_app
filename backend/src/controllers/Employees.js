@@ -47,6 +47,26 @@ function saveEmployee(employee) { //insert and update
     return employee //retorna o funcionário inserido/atualizado
 }
 
+function deleteEmployee(Cpf) {
+    employees = arquivo.load()
+
+    console.log('excluir')
+    console.log('Cpf', Cpf)
+
+    deletedItem = [];
+    deletedItem = employees.filter((item) => item.Cpf == Cpf )
+
+    const newEmployees = employees.filter((item) => item.Cpf != Cpf )
+
+    console.log(`qtdAnterior: ${employees.length}, qtdNova: ${newEmployees.length}`)
+    
+    if((employees.length - 1) === newEmployees.length){ //se realmente tirou um item do array
+        arquivo.save(newEmployees)
+    }
+
+    return deletedItem
+}
+
 const filterData = (query, data) => {  /* Método filterData ---------------------------------------- */
     console.log('filtrando funcionários: ', query)
 
@@ -95,5 +115,6 @@ const filterData = (query, data) => {  /* Método filterData -------------------
 
 module.exports = {
     getEmployees,
-    saveEmployee
+    saveEmployee,
+    deleteEmployee
 }
