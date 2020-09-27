@@ -2,16 +2,17 @@ const arquivo = require('./fileManager');
 
 const getData = (query='{}') => { /* Método getData ---------------------------------------- */
     
-    response = arquivo.getJSON();  
+    response = arquivo.load(); 
 
     if(JSON.stringify(query) != '{}'){ //verifica se o objeto query não é vazio
         response = filterData(query, response); //filtra os funcionários
     }
     
-    return arquivo.save(response)  
+    return response;  
 }
 
 const filterData = (query, data) => {  /* Método filterData ---------------------------------------- */
+    console.log('filtrando funcionários: ', query)
 
     if(query.groupByUfNasc) { // quando quer retornar a quantidade de funcionários em um Estado (UfNasc)
 

@@ -9,7 +9,6 @@ app.get("/", (req, res) => { res.send('Server is running!'); });
 app.get("/api/employees", (req, res) => {
 
     data = employee.getData(req.query);
-
     res.send(data)
 });
 
