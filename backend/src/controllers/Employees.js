@@ -107,7 +107,7 @@ const filterData = (query, data) => {  /* Método filterData -------------------
         key = query[0];
         value = query[1];
 
-        return item[key] === value
+        return item[key].toUpperCase() === value.toUpperCase()
     } 
 
     return data.filter((item) => filtraPorCampos(item, arrQuery))
