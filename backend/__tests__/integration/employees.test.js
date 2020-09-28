@@ -31,15 +31,13 @@ describe('Listar funcionários', () => {
         expect(res.length).toBe(1)
     });
 
-
-
     it('filtra funcionários por data de cadastro', () => {
                 
         const aux1 = {
             DataCad: "26/09/2020",
             Cargo: "Dev Jr",
             Cpf: "567567657567",
-            Nome: "John",
+            Nome: "Cris P.",
             UfNasc: "RS",
             Salario: 5070.98,
             Status: "ATIVO"
@@ -63,8 +61,42 @@ describe('Listar funcionários', () => {
         res = employee.getEmployees(query)
         //console.log(res)
         expect(res.length).toBe(2)
+    });
 
-    })
+    it('filtra funcionários por cargo', () => { 
+        query = { Cargo: 'Dev Jr' }
+        res = employee.getEmployees(query)
+ 
+        expect(res.length).toBe(1)
+    });
+    
+    it('filtra funcionários por cpf', () => { 
+        query = { Cpf: '467585858595' }
+        res = employee.getEmployees(query)
+ 
+        expect(res.length).toBe(1)
+    });
+
+    it('filtra funcionários por nome', () => { 
+        query = { Nome: 'John' }
+        res = employee.getEmployees(query)
+ 
+        expect(res.length).toBe(1)
+    });
+
+    it('filtra funcionários por UfNasc (unidade federativa de nascimento)', () => { 
+        query = { UfNasc: 'RS' }
+        res = employee.getEmployees(query)
+ 
+        expect(res.length).toBe(2)
+    });
+    
+    it('filtra funcionários por Status', () => { 
+        query = { Status: 'Ativo' }
+        res = employee.getEmployees(query)
+ 
+        expect(res.length).toBe(2)
+    });
 })
 
 describe('Limpa arquivo JSON', () => {
@@ -72,7 +104,7 @@ describe('Limpa arquivo JSON', () => {
     it("esvazia o array de objetos no arquivo 'employees.test.json', salvando um array vazio", () => {
         const arquivo = require('./../../src/controllers/fileManager');
         arquivo.save([]); //esvazia o JSON
-        
+
         res = employee.getEmployees()
         expect(res.length).toBe(0)
     });
