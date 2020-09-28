@@ -26,11 +26,11 @@ function saveEmployee(employee) { //insert and update
     const x = employees.filter(({ Cpf }) => Cpf == employee.Cpf)
 
     if(x.length == 0){ //se nao existe um objeto com esse Cpf, então insere um novo
-        console.log('insere')
+        //console.log('insere')
         employees.push(employee)
 
     }else{ //atualiza
-        console.log('atualiza')
+        //console.log('atualiza')
 
         employees = employees.map((item) => {
             if(item.Cpf == employee.Cpf) {
@@ -41,7 +41,7 @@ function saveEmployee(employee) { //insert and update
         })
     }
 
-    console.log('Cpf', employee.Cpf)
+    //console.log('Cpf', employee.Cpf)
 
     arquivo.save(employees)
     return employee //retorna o funcionário inserido/atualizado
@@ -50,15 +50,15 @@ function saveEmployee(employee) { //insert and update
 function deleteEmployee(Cpf) {
     employees = arquivo.load()
 
-    console.log('excluir')
-    console.log('Cpf', Cpf)
+    /*console.log('excluir')
+    console.log('Cpf', Cpf)*/
 
     deletedItem = [];
     deletedItem = employees.filter((item) => item.Cpf == Cpf )
 
     const newEmployees = employees.filter((item) => item.Cpf != Cpf )
 
-    console.log(`qtdAnterior: ${employees.length}, qtdNova: ${newEmployees.length}`)
+    //console.log(`qtdAnterior: ${employees.length}, qtdNova: ${newEmployees.length}`)
     
     if((employees.length - 1) === newEmployees.length){ //se realmente tirou um item do array
         arquivo.save(newEmployees)
@@ -68,7 +68,7 @@ function deleteEmployee(Cpf) {
 }
 
 const filterData = (query, data) => {  /* Método filterData ---------------------------------------- */
-    console.log('filtrando funcionários: ', query)
+    //console.log('filtrando funcionários: ', query)
 
     if(query.groupByUfNasc) { // quando quer retornar a quantidade de funcionários em um Estado (UfNasc)
 

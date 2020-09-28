@@ -19,7 +19,7 @@ describe('Salvar funcionário', () => {
         Salario: 5070.98,
         Status: "EM ANÁLISE"
     }
-    
+
     it('Insere um novo funcionário', () => {
         qtdInicial = employee.getEmployees().length
 
@@ -135,6 +135,30 @@ describe('Listar funcionários', () => {
         query = { groupByUfNasc: 'RS' }
         res = employee.getEmployees(query)
         expect(res.qtdEmployees).toBe(2)
+    });
+})
+
+describe('Exclui um funcionário', () => {
+    
+    cpf = '347367548768'; //cpf do funcionário a ser excluído
+    const query = { Cpf: cpf }
+
+    it('deleta uma posição do array de funcionários (JSON) que tenha o mesmo Cpf passado', () => {
+        qtdInicial = employee.getEmployees().length
+        
+        obj = employee.getEmployees(query); //busca o objeto por Cpf
+        res = employee.deleteEmployee(cpf); //recebe o Cpf por parâmetro e retorna o objeto excluído
+        
+        expect(res).toStrictEqual(obj); //toStrictEqual para comparar os JSON
+
+        qtdNova = employee.getEmployees().length
+        expect(qtdNova).toBe(qtdInicial - 1);
+    });
+
+    it('tenta buscar um cpf de um funcionário excluído, e deve receber um array vazio', () => {
+        
+        res = employee.getEmployees(query);
+        expect(res).toStrictEqual([]);
     });
 })
 
