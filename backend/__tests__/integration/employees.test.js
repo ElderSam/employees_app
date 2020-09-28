@@ -6,7 +6,7 @@ require('dotenv').config({
 const employee = require('./../../src//controllers/Employees');
 
 describe('Salvar funcionário', () => {
-    it('Insere um novo funcionário ou atualiza um existente', () => {
+    it('Insere um novo funcionário ou atualiza um existente, e deve retornar o próprio objeto', () => {
 
         const aux = {
             DataCad: "27/09/2020",
