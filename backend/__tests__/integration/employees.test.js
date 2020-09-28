@@ -92,7 +92,7 @@ describe('Listar funcionários', () => {
     });
     
     it('filtra funcionários por Status', () => { 
-        query = { Status: 'Ativo' }
+        query = { Status: 'ATIVO' }
         res = employee.getEmployees(query)
  
         expect(res.length).toBe(2)
