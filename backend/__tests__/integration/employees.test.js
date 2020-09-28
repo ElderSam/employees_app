@@ -107,6 +107,16 @@ describe('Listar funcionários', () => {
         res = employee.getEmployees(query)
         expect(res.length).toBe(2)
     });
+
+    it('retorna um objeto que possue como atributo a quantidade de funcionários agrupados por Estado (UfNasc)', () => {
+        query = { groupByUfNasc: 'SP' }
+        res = employee.getEmployees(query)
+        expect(res.qtdEmployees).toBe(1)
+
+        query = { groupByUfNasc: 'RS' }
+        res = employee.getEmployees(query)
+        expect(res.qtdEmployees).toBe(2)
+    });
 })
 
 describe('Limpa arquivo JSON', () => {

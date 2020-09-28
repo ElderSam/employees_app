@@ -73,7 +73,7 @@ const filterData = (query, data) => {  /* Método filterData -------------------
     if(query.groupByUfNasc) { // quando quer retornar a quantidade de funcionários em um Estado (UfNasc)
 
         const dataByUfNasc = data.filter((item) => (item.UfNasc == query.groupByUfNasc))
-        let qtd = JSON.stringify(dataByUfNasc.length); 
+        let qtd = dataByUfNasc.length; 
         objFiltered = { qtdEmployees: qtd}
         
         return objFiltered
