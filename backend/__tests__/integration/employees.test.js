@@ -97,6 +97,16 @@ describe('Listar funcionários', () => {
  
         expect(res.length).toBe(2)
     });
+
+    it('filtra por faixa salarial', () => {
+        query = { SalarioMin: 0.00, SalarioMax: 5000.00 }
+        res = employee.getEmployees(query)
+        expect(res.length).toBe(1)
+
+        query = { SalarioMin: 5000.00, SalarioMax: 10000.00 }
+        res = employee.getEmployees(query)
+        expect(res.length).toBe(2)
+    });
 })
 
 describe('Limpa arquivo JSON', () => {

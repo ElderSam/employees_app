@@ -85,8 +85,7 @@ const filterData = (query, data) => {  /* Método filterData -------------------
         arrQuery.push([key, query[key]]) // coloca em cada posição do array [key, value]
     }
 
-    if(query.SalarioMin) { //se quer filtrar por faixa salarial
-
+    if(query.SalarioMin != undefined) { //se quer filtrar por faixa salarial (obs: tem que aceitar 0(zero), pois 0==false)
         const filtraFaixaSalarial = (salario) => {
             salario = parseFloat(salario);
             min = parseFloat(query.SalarioMin);
