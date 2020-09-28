@@ -30,6 +30,41 @@ describe('Listar funcionários', () => {
         res = employee.getEmployees()
         expect(res.length).toBe(1)
     });
+
+
+
+    it('filtra funcionários por data de cadastro', () => {
+                
+        const aux1 = {
+            DataCad: "26/09/2020",
+            Cargo: "Dev Jr",
+            Cpf: "567567657567",
+            Nome: "John",
+            UfNasc: "RS",
+            Salario: 5070.98,
+            Status: "ATIVO"
+        }
+
+        const aux2 = {
+            DataCad: "26/09/2020",
+            Cargo: "Dev Pl",
+            Cpf: "467585858595",
+            Nome: "Samuel Jack",
+            UfNasc: "SP",
+            Salario: 2000.00,
+            Status: "ATIVO"
+        }
+
+        employee.saveEmployee(aux1)
+        employee.saveEmployee(aux2)
+        //console.log(employee.getEmployees())
+
+        query = { DataCad: '26/09/2020' }
+        res = employee.getEmployees(query)
+        //console.log(res)
+        expect(res.length).toBe(2)
+
+    })
 })
 
 const arquivo = require('./../../src/controllers/fileManager');
