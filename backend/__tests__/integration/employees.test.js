@@ -23,3 +23,6 @@ describe('Salvar funcionário', () => {
         expect(newEmployee).toBe(aux)
     });
 })
+
+const arquivo = require('./../../src/controllers/fileManager');
+arquivo.save([]); //esvazia o JSON
