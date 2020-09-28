@@ -1,7 +1,8 @@
 /* CARREGAR E SALVAR EM DISCO (JSON) */
+require('dotenv/config');
 
 const fs = require('fs');
-const contentFilePath = './employees.json';
+const contentFilePath = './' + process.env.DB_FILE;
 
 function load() {
     const fileBuffer = fs.readFileSync(contentFilePath, 'utf-8')
