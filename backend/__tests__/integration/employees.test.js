@@ -67,5 +67,13 @@ describe('Listar funcionários', () => {
     })
 })
 
-const arquivo = require('./../../src/controllers/fileManager');
-arquivo.save([]); //esvazia o JSON
+describe('Limpa arquivo JSON', () => {
+
+    it("esvazia o array de objetos no arquivo 'employees.test.json', salvando um array vazio", () => {
+        const arquivo = require('./../../src/controllers/fileManager');
+        arquivo.save([]); //esvazia o JSON
+        
+        res = employee.getEmployees()
+        expect(res.length).toBe(0)
+    });
+})
