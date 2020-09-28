@@ -3,6 +3,7 @@ require('dotenv/config');
 
 const fs = require('fs');
 const contentFilePath = './' + process.env.DB_FILE;
+console.log('DB_FILE', process.env.DB_FILE)
 
 function load() {
     const fileBuffer = fs.readFileSync(contentFilePath, 'utf-8')
