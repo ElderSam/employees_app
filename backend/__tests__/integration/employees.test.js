@@ -24,5 +24,13 @@ describe('Salvar funcionário', () => {
     });
 })
 
+describe('Listar funcionários', () => {
+    it('lista todos os funcionários em JSON (array de objetos)', () => {
+
+        res = employee.getEmployees()
+        expect(res.length).toBe(1)
+    });
+})
+
 const arquivo = require('./../../src/controllers/fileManager');
 arquivo.save([]); //esvazia o JSON

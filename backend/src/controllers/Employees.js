@@ -1,6 +1,6 @@
 const arquivo = require('./fileManager');
 
-const getEmployees = (query='{}') => { /* Método getEmployees ---------------------------------------- */
+const getEmployees = (query={}) => { /* Método getEmployees ---------------------------------------- */
     
     employees = arquivo.load(); 
 
