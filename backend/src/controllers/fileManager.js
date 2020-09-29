@@ -7,8 +7,15 @@ console.log('DB_FILE:', process.env.DB_FILE)
 
 function load() {
     const fileBuffer = fs.readFileSync(contentFilePath, 'utf-8')
-    const contentJson = JSON.parse(fileBuffer)
-    return contentJson
+
+    try{
+        return JSON.parse(fileBuffer)
+    }catch(error){
+        console.error(error);
+        return JSON.parse([]);
+    }
+    
+    //return contentJson
 }
 
 const save = (content) => {
