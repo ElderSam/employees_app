@@ -1,7 +1,7 @@
-require('dotenv').config({  
-    //path: process.env.NODE_ENV === "test" ? ".env.test" : ".env"
-    path: ".env.test"
-})
+require('./../config');
+
+const arquivo = require('./../../src/controllers/fileManager');
+arquivo.save([]); //esvazia o JSON
 
 const employee = require('./../../src//controllers/Employees');
 
@@ -165,9 +165,7 @@ describe('Exclui um funcionário', () => {
 describe('Limpa arquivo JSON', () => {
 
     it("esvazia o array de objetos no arquivo 'employees.test.json', salvando um array vazio", () => {
-        const arquivo = require('./../../src/controllers/fileManager');
         arquivo.save([]); //esvazia o JSON
-
         res = employee.getEmployees()
         expect(res.length).toBe(0)
     });
