@@ -115,5 +115,6 @@ const filterData = (query, data) => {  /* Método filterData -------------------
 module.exports = {
     getEmployees,
     saveEmployee,
-    deleteEmployee
+    deleteEmployee,
+    filterData
 }
