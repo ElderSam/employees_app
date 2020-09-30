@@ -5,7 +5,17 @@ const getEmployees = (query={}) => { /* Método getEmployees -------------------
     employees = arquivo.load(); 
 
     if(JSON.stringify(query) != '{}'){ //verifica se o objeto query não é vazio
-        employees = filterData(query, employees); //filtra os funcionários
+
+        page = query.page   
+        delete query.page //apaga o atributo page para desconsiderar eele ao filtrar pelo que está dentro de query
+        
+        if(JSON.stringify(query) != '{}'){ //se existir outra propriedade sem ser page
+            employees = filterData(query, employees); //filtra os funcionários
+        }
+
+        if(page > 0) { //se foi passado o parâmetro página
+            employees = paginateList(page, employees);
+        }
     }
     
     return employees;  
@@ -65,6 +75,20 @@ function deleteEmployee(Cpf) {
     }
 
     return deletedItem
+}
+
+const paginateList = (page, data) => { //percorre o arary e retorna de 10 em 10
+
+    initialIndex = (page - 1) * 10; //ex: se a page=1 então começa do 0, se page=2 começa do 10
+    limit = initialIndex + 10
+    res = [];
+
+    for(i=initialIndex; i<limit; i++) {
+        if(i > (data.length - 1)) break; //se já percorreu o array inteiro, sai do loop
+        res.push(data[i]);
+    }
+
+    return res
 }
 
 const filterData = (query, data) => {  /* Método filterData ---------------------------------------- */
