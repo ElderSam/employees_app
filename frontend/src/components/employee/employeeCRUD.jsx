@@ -11,7 +11,9 @@ const headerProps = {
 const baseUrl = 'http://localhost:3001/api/employees'
 const initialState = {
     employee: { DataCad: '', Cargo: '', Cpf: '', Nome: '', UfNasc: '', Salario: '', Status: '' },
-    list: []
+    list: [],
+    listInfo: {}, //vlTotal, pagina atual, etc
+    page: 1
 }
 
 export default class EmployeeCrud extends Component {
@@ -19,10 +21,20 @@ export default class EmployeeCrud extends Component {
     state = { ...initialState }
 
     componentWillMount() {
-        axios(baseUrl).then(resp => {
-            this.setState({ list: resp.data })
+        this.loadEmployees()
+    }
+
+    loadEmployees() {
+        const { page } = this.state;
+
+        axios(`${baseUrl}?page=${page}`).then(resp => {
+            //console.log(resp)
+            const { docs, ...listInfo} = resp.data
+            
+            this.setState({ list: docs, listInfo })
         })
     }
+
     clear() {
         this.setState({ employee: initialState.employee })
     }
@@ -46,10 +58,16 @@ export default class EmployeeCrud extends Component {
         return list
     }
 
-    updateField(event) {
+    updateField(event) { //para todos os campos do formulário de funcionários
         const employee = { ...this.state.employee}
         employee[event.target.name] = event.target.value
         this.setState({ employee })
+    }
+
+    updateFieldSearch(event) { //para campos de filtro/pesquisa
+        const searchForm = { ...this.state.searchForm}
+        searchForm[event.target.name] = event.target.value
+        this.setState({ searchForm })
     }
 
     renderForm() {
@@ -207,23 +225,39 @@ export default class EmployeeCrud extends Component {
     }
 
     renderTable() {
+        const { page, listInfo } = this.state
+
         return (
-            <table className="table mt-4">
-                <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Cpf</th>
-                        <th>Cargo</th>
-                        <th>Salario</th>
-                        <th>UfNasc</th>
-                        <th>DtCad</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {this.renderRows()}
-                </tbody>
-            </table>
+            <div>
+                <table className="table mt-4">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Cpf</th>
+                            <th>Cargo</th>
+                            <th>Salario</th>
+                            <th>UfNasc</th>
+                            <th>DtCad</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {this.renderRows()}
+                    </tbody>
+                </table>
+             
+                <div className="actions">
+                    <button disabled={page === 1}
+                        onClick={() => this.prevPage()}>
+                            Anterior
+                    </button>
+
+                    <button disabled={page === listInfo.pages}
+                        onClick={() => this.nextPage()}>
+                            Próxima
+                    </button>
+                </div>
+            </div>    
         )
     }
 
@@ -254,13 +288,35 @@ export default class EmployeeCrud extends Component {
         })
     }
 
+    prevPage() { //página anterior
+        const { page } = this.state
+
+        if(page === 1) return; //se já estiver na primeira página, não faz nada
+        
+        const pageNumber = page - 1;
+        this.setState({ page: pageNumber });
+        this.loadEmployees();
+    }
+
+    nextPage() { //próxima página
+        const { page, listInfo } = this.state
+        console.log(`page: ${page}`)
+
+        if(page === listInfo.pages) return; //se já estiver na última página, não faz nada
+        
+        const pageNumber = page + 1;
+        this.setState({ page: pageNumber });
+        this.loadEmployees();
+    }
+
     render() {
         //console.log(this.state.list)
 
         return (
             <Main {...headerProps}>
                 {this.renderForm()}
-                {this.renderTable()}
+                {this.renderFilter()}
+                {this.renderTable()}         
             </Main>
         )
     }
