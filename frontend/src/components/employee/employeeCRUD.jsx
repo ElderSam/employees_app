@@ -26,7 +26,8 @@ export default class EmployeeCrud extends Component {
         const employee = this.state.employee
         //const method = employee.id ? 'put' : 'post'
         const method = 'post'
-        const url = employee.Cpf ? `${baseUrl}/${employee.Cpf}` :baseUrl
+        //const url = employee.Cpf ? `${baseUrl}/${employee.Cpf}` :baseUrl
+        const url = baseUrl
         axios[method](url, employee)
             .then(resp => {
                 const list = this.getUpdatedList(resp.data) //obtém a lista
