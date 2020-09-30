@@ -84,10 +84,11 @@ const paginateList = (page, data) => { //percorre o arary e retorna de 10 em 10
     res = [];
 
     for(i=initialIndex; i<limit; i++) {
+        //console.log(`index: ${i}, limit: ${limit}, total: ${data.length}`)
         if(i > (data.length - 1)) break; //se já percorreu o array inteiro, sai do loop
         res.push(data[i]);
     }
-
+    
     return res
 }
 
