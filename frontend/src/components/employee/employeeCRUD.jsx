@@ -3,7 +3,7 @@ import Main from '../template/Main'
 import axios from 'axios';
 
 const headerProps = {
-    icon: 'employees',
+    icon: 'id-badge',
     title: 'Funcionários',
     subtitle: 'Cadastro de funcionários: Incluir, Listar, Alterar e Excluir'
 }
