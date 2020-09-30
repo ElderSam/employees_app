@@ -56,7 +56,7 @@ export default class EmployeeCrud extends Component {
                                 name="Cpf"
                                 value={this.state.employee.Cpf}
                                 onChange={e => this.updateField(e)}
-                                placeholder="000.000.000-00"/>
+                                placeholder="00000000000"/>
                         </div>
                     </div>
 
