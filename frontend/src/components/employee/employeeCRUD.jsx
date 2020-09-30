@@ -8,7 +8,7 @@ const headerProps = {
     subtitle: 'Cadastro de funcionários: Incluir, Listar, Alterar e Excluir'
 }
 
-const baseUrl = 'http://localhost:3001/employees'
+const baseUrl = 'http://localhost:3001/api/employees'
 const initialState = {
     employee: { DataCad: '', Cargo: '', Cpf: '', Nome: '', UfNasc: '', Salario: '', Status: '' },
     list: []
@@ -18,6 +18,11 @@ export default class EmployeeCrud extends Component {
 
     state = { ...initialState }
 
+    componentWillMount() {
+        axios(baseUrl).then(resp => {
+            this.setState({ list: resp.data })
+        })
+    }
     clear() {
         this.setState({ employee: initialState.employee })
     }
@@ -35,9 +40,10 @@ export default class EmployeeCrud extends Component {
             })
     }
 
-    getUpdatedList(employee) {
-        const list = this.state.list.filter(e => e.id !== employee.Cpf) //pega todos os outros da lista
-        list.unshift(employee) //coloca o funcionário atual na primeira posição do array
+    getUpdatedList(employee, add=true) { //add=true quando insere/atualiza e falso quando exclui
+        const list = this.state.list.filter(e => e.Cpf !== employee.Cpf) //pega todos os outros da lista
+        if(add) list.unshift(employee) //coloca o funcionário atual na primeira posição do array
+        return list
     }
 
     updateField(event) {
@@ -189,10 +195,72 @@ export default class EmployeeCrud extends Component {
         )
     }
 
+    load(employee) {
+        this.setState({ employee })
+    }
+
+    remove(employee) {
+        axios.delete(`${baseUrl}/${employee.Cpf}`).then(resp => {
+            const list = this.getUpdatedList(employee, false) //passar null como parâmetro para não adicionar o elemento atual na lista
+            this.setState({ list })
+        })
+    }
+
+    renderTable() {
+        return (
+            <table className="table mt-4">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Cpf</th>
+                        <th>Cargo</th>
+                        <th>Salario</th>
+                        <th>UfNasc</th>
+                        <th>DtCad</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {this.renderRows()}
+                </tbody>
+            </table>
+        )
+    }
+
+    renderRows() {
+        return this.state.list.map(employee => {
+            return (
+                <tr key={employee.Cpf}>
+                        <td>{employee.Nome}</td>
+                        <td>{employee.Cpf}</td>
+                        <td>{employee.Cargo}</td>
+                        <td>{employee.Salario}</td>
+                        <td>{employee.UfNasc}</td>
+                        <td>{employee.DtCad}</td>
+                        <td>{employee.Status}</td>
+
+                        <td>
+                            <button className="btn btn-warning"
+                                onClick={() => this.load(employee)}>
+                                <i className="fa fa-pencil"></i>
+                            </button>
+                            <button className="btn btn-danger ml-2"
+                                onClick={() => this.remove(employee)}>
+                                <i className="fa fa-trash"></i>
+                            </button>
+                        </td>
+                </tr>
+            )
+        })
+    }
+
     render() {
+        //console.log(this.state.list)
+
         return (
             <Main {...headerProps}>
                 {this.renderForm()}
+                {this.renderTable()}
             </Main>
         )
     }
