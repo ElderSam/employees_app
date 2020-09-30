@@ -52,11 +52,11 @@ export default class EmployeeCrud extends Component {
                     <div className="col-12 col-md-6">  {/* col-12 ocupa 100% da tela quando é pequena (mobile), e col-md-6 para occupar metade da tela em desktops/notebooks */}
                         <div className="form-group">
                             <label>CPF</label>
-                            <input type="number" className="form-control"
+                            <input type="text" className="form-control"
                                 name="Cpf"
                                 value={this.state.employee.Cpf}
                                 onChange={e => this.updateField(e)}
-                                placeholder="00000000000"/>
+                                placeholder="00000000000" maxLength="11"/>
                         </div>
                     </div>
 
