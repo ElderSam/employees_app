@@ -1,0 +1,29 @@
+.employee-list .actions {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.employee-list .actions button {
+    padding: 10px;
+    border-radius: 5px;
+    border: 0;
+    background-color: #da552f;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.employee-list .actions button[disabled] {
+    opacity: 0.5;
+    cursor: default;
+}
+
+.employee-list .actions button:hover {
+    opacity: 0.7;
+}
+
+.employee-list .actions button[disabled]:hover {
+    opacity: 0.5;
+}
