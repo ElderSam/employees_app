@@ -264,7 +264,7 @@ export default class EmployeeCrud extends Component {
                         <option value="Cargo">Cargo</option>
                         <option value="Salario">Salario</option>
                         <option value="UfNasc">UfNasc</option>
-                        <option value="DtCad">DtCad</option>
+                        <option value="DataCad">DataCad</option>
                         <option value="Status">Status</option>
                     </select>
                 </div>
@@ -303,7 +303,7 @@ export default class EmployeeCrud extends Component {
                             <th>Cargo</th>
                             <th>Salario</th>
                             <th>UfNasc</th>
-                            <th>DtCad</th>
+                            <th>DataCad</th>
                             <th>Status</th>
                         </tr>
                     </thead>
@@ -327,6 +327,14 @@ export default class EmployeeCrud extends Component {
         )
     }
 
+    formatDate(data) { //recebe 'yyyy-mm-dd' e retorna 'dd/mm/yyyy'
+        const year = data.substr(0, 4)
+        const month = data.substr(5, 2)
+        const day = data.substr(8, 2)
+        
+        return `${day}/${month}/${year}`
+    }
+
     renderRows() {
         return this.state.list.map(employee => {
             return (
@@ -336,7 +344,7 @@ export default class EmployeeCrud extends Component {
                         <td>{employee.Cargo}</td>
                         <td>{employee.Salario}</td>
                         <td>{employee.UfNasc}</td>
-                        <td>{employee.DtCad}</td>
+                        <td>{this.formatDate(employee.DataCad)}</td>
                         <td>{employee.Status}</td>
 
                         <td>
