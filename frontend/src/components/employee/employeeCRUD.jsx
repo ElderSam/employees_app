@@ -239,7 +239,7 @@ export default class EmployeeCrud extends Component {
         if((field != '') && (value != '')) { //se preencheu os campos para pesquisar
             reqFilterUrl = `&${field}=${value}`
         }else {
-
+            alert('escolha um campo e insira um valor válido para pesquisar!')
         }
 
         this.setState({ reqFilterUrl: reqFilterUrl, page: 1 })
@@ -305,6 +305,7 @@ export default class EmployeeCrud extends Component {
                             <th>UfNasc</th>
                             <th>DataCad</th>
                             <th>Status</th>
+                            <th>Ações</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -354,10 +355,12 @@ export default class EmployeeCrud extends Component {
 
                         <td>
                             <button className="btn btn-warning"
+                                title="editar"
                                 onClick={() => this.load(employee)}>
                                 <i className="fa fa-pencil"></i>
                             </button>
                             <button className="btn btn-danger ml-2"
+                                title="excluir"
                                 onClick={() => this.remove(employee)}>
                                 <i className="fa fa-trash"></i>
                             </button>
