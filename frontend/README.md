@@ -1,3 +1,13 @@
+# Front-end
+
+Instruções;
+    Para instalar as dependências do projeto, entre nesta pasta através do terminal e digite o comando;
+        npm install
+
+    Para iniciar o front-end (React) dê o comando;
+        npm start
+
+------------------------
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
