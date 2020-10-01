@@ -293,7 +293,7 @@ export default class EmployeeCrud extends Component {
         const { page, listInfo } = this.state
 
         return (
-            <div className="employee-list">
+            <div className="employee-list table-responsive">
                 <h2>Tabela de Funcionários</h2>
                 <table className="table mt-4">
                     <thead>
