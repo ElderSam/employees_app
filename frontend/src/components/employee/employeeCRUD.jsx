@@ -13,7 +13,9 @@ const initialState = {
     employee: { DataCad: '', Cargo: '', Cpf: '', Nome: '', UfNasc: '', Salario: '', Status: '' },
     list: [],
     listInfo: {}, //vlTotal, pagina atual, etc
-    page: 1
+    page: 1,
+    searchForm: { field: '',  value: '' },
+    reqFilterUrl: false
 }
 
 export default class EmployeeCrud extends Component {
@@ -25,12 +27,17 @@ export default class EmployeeCrud extends Component {
     }
 
     loadEmployees() {
-        const { page } = this.state;
+        const { page, reqFilterUrl } = this.state;
+        let reqUrl = `${baseUrl}?page=${page}`
 
-        axios(`${baseUrl}?page=${page}`).then(resp => {
-            //console.log(resp)
+        if(reqFilterUrl) {
+            reqUrl += reqFilterUrl
+        }
+
+        console.log(reqUrl)
+        axios(reqUrl).then(resp => {
+            console.log(resp)
             const { docs, ...listInfo} = resp.data
-            
             this.setState({ list: docs, listInfo })
         })
     }
@@ -224,11 +231,69 @@ export default class EmployeeCrud extends Component {
         })
     }
 
+    filterTable() {
+        const {field, value} = this.state.searchForm
+            let reqFilterUrl = false
+
+        if((field != '') && (value != '')) { //se preencheu os campos para pesquisar
+            reqFilterUrl = `&${field}=${value}`
+        }else {
+
+        }
+
+        this.setState({ reqFilterUrl: reqFilterUrl, page: 1 })
+        this.loadEmployees()
+    }
+
+    renderFilter() {
+        const { field, value } = this.state.searchForm
+
+        return (  
+            <div className="row bg-dark text-white mt-2"> {/*-- FILTRO --*/}
+                <h4 className="mt-4 ml-4">Filtrar tabela:</h4>
+                <div className="form-group col-3">
+                    <label for="field">campo:</label>
+                    <select className="form-control" 
+                        name="field" 
+                        value={ field } /* campo escolhido para busca */
+                        onChange={e => this.updateFieldSearch(e)}>
+                        <option value="">escolha um campo...</option>
+                        <option value="Nome">Nome</option>
+                        <option value="Cpf">Cpf</option>
+                        <option value="Cargo">Cargo</option>
+                        <option value="Salario">Salario</option>
+                        <option value="UfNasc">UfNasc</option>
+                        <option value="DtCad">DtCad</option>
+                        <option value="Status">Status</option>
+                    </select>
+                </div>
+
+                <div className="row">
+                    <div className="ml-1">
+                        <label for="value">pesquisar por:</label>
+                        <input type="text"
+                            className="form-control"
+                            name="value"
+                            value={ value }
+                            onChange={e => this.updateFieldSearch(e)}/>
+                    </div>
+                   
+                    <button className="btn btn-success ml-2 mt-4 mb-3"
+                        onClick={() => this.filterTable()}>
+                        <i className="fa fa-search" title="pesquisar"></i>  
+                    </button>
+                </div>
+
+            </div>
+        )
+    }
+
     renderTable() {
         const { page, listInfo } = this.state
 
         return (
-            <div>
+            <div className="employee-list">
+                <h2>Tabela de Funcionários</h2>
                 <table className="table mt-4">
                     <thead>
                         <tr>
@@ -300,10 +365,10 @@ export default class EmployeeCrud extends Component {
 
     nextPage() { //próxima página
         const { page, listInfo } = this.state
-        console.log(`page: ${page}`)
+        console.log(`page: ${page}, totalPages: ${listInfo.pages}`)
 
         if(page === listInfo.pages) return; //se já estiver na última página, não faz nada
-        
+        console.log('passou, então tem mais página')
         const pageNumber = page + 1;
         this.setState({ page: pageNumber });
         this.loadEmployees();

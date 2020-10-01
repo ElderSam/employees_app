@@ -90,9 +90,9 @@ const paginateList = (page, data) => { //percorre o arary e retorna de 10 em 10
         res.push(data[i]);
     }
 
-    sobra = data.length % 10
-    totalPages = parseInt(data.length/10 + sobra)
-
+    sobra = (data.length%limitInPage) == 0 ? 0 : 1; //se sobrar 1 ou mais elementos, então vai adionar a última página
+    totalPages = parseInt(data.length/limitInPage + sobra)
+    //console.log(`total: ${data.length}, pags: ${totalPages}`)
     return { pages: totalPages, limit: limitInPage,  docs: res }
 }
 
