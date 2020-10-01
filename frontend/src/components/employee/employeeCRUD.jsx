@@ -327,6 +327,11 @@ export default class EmployeeCrud extends Component {
         )
     }
 
+    formatMoney(money) { //formata valor para R$ (reais)
+        money = parseFloat(money)
+        return money.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
+    }
+
     formatDate(data) { //recebe 'yyyy-mm-dd' e retorna 'dd/mm/yyyy'
         const year = data.substr(0, 4)
         const month = data.substr(5, 2)
@@ -342,7 +347,7 @@ export default class EmployeeCrud extends Component {
                         <td>{employee.Nome}</td>
                         <td>{employee.Cpf}</td>
                         <td>{employee.Cargo}</td>
-                        <td>{employee.Salario}</td>
+                        <td>{this.formatMoney(employee.Salario)}</td>
                         <td>{employee.UfNasc}</td>
                         <td>{this.formatDate(employee.DataCad)}</td>
                         <td>{employee.Status}</td>
