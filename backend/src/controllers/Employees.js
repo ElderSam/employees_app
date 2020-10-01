@@ -4,6 +4,22 @@ const getEmployees = (query={}) => { /* Método getEmployees -------------------
     
     employees = arquivo.load(); 
 
+    const formatDate = (data) => { //recebe 'dd/mm/yyyy' e retorna 'yyyy-mm-dd'
+        day = data.substr(0, 2)
+        month = data.substr(3, 2)
+        year = data.substr(6, 4)
+        
+        return `${year}-${month}-${day}`
+    }
+    
+    employees = employees.map( item => {
+        item.DataCad = formatDate(item.DataCad)
+        console.log(item.DataCad)
+        return item
+    })
+
+    arquivo.save(employees)
+ 
     if(JSON.stringify(query) != '{}'){ //verifica se o objeto query não é vazio
 
         page = parseInt(query.page)   
