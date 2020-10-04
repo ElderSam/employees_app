@@ -39,9 +39,13 @@ describe('Testa funções do arquivo fileManager.js', () => {
     });
 
     it('Testa função load()', () => {
-        res = arquivo.load();
-        expect(res).toStrictEqual(content);
+        res1 = arquivo.load();
+        expect(res1).toStrictEqual(content);
 
-        arquivo.save([]); //esvazia o JSON
+        res2 = arquivo.save([]); //esvazia o JSON
+        expect(res2).toBe('Arquivo salvo!')
+
+        res3 = arquivo.load().length;
+        expect(res3).toBe(0)
     });  
 })

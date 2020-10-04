@@ -134,8 +134,13 @@ const filterData = (query, data) => {  /* Método filterData -------------------
         let query = arrQueries[0];
         key = query[0];
         value = query[1];
-
-        return item[key].toUpperCase() === value.toUpperCase()
+        
+        if(key == 'Cpf') {
+            return item[key] === value
+        }else {
+            return item[key].toUpperCase() === value.toUpperCase()
+        }
+        
     } 
 
     return data.filter((item) => filtraPorCampos(item, arrQuery))
