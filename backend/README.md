@@ -1,10 +1,14 @@
 # Backend
+    Desenvolvido em Node.js
 
 # Inicia o servidor;
 Abrir o terminal, entrar nesta pasta (backend/) e dar o comando;
 
 $ npm run dev
 /*depois é só abrir o navegador e colocar o endereço do servidor: http://localhost:3001*/
+
+# Realizar os testes unitários e de integração
+$ npm test
 
 ------------------------------------------------------------
 # Rotas da API;
@@ -51,5 +55,22 @@ $ npm run dev
     #  Express;
     Microframework que nos ajuda com rotas (endereços, url)
 
-    # Nodemon;
+    # Nodemon (foi usado como dependência de desenvolvimento);
     Reinicializa o servidor automaticamente toda vez que  modificamos o arquivo server.js
+
+--------------------------------------------------------
+
+# Estrutura do projeto
+
+    O primeiro arquivo a ser lido quando inicia o servidor backend é o server.js
+    dentro da pasta src/ nós temos o nosso código desenvolvido nessa aplicação;
+
+
+        As rotas da API estão no arquivo src/routes.js, que recebe as requisições pelos métodos GET e POST e faz chamada às funções do controller de funcionários retornando a resposta deste.
+        
+        na pasta controllers/ estão;
+            O nosso controller de funcionários, Employees.js (dentro de src/controllers/), que recebe as chamadas de funções das rotas, executa as funções e retorna. Nós temos funções de listar, filtrar, inserir, atualizar e excluir um funcionário (employee).
+            O arquivo fileManager.js (dentor de src/controllers/) que gerencia o acesso ao arquivo JSON que está funcionando como nosso banco de dados. Ele basicamente tem 2 funções; load() e save(), que respectivamente leem dados do arquivo JSON e salvam dados nesse mesmo arquivo JSON (employees.json dentro da pasta backend/).
+        
+        os nossos testes estão na pasta __tests__ onde tem os testes unitários e testes de integração;
+        OBS: para rodar todos os testes, basta dar o comando 'npm test'
