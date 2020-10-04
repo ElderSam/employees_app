@@ -12,3 +12,5 @@
 
     As tarefas (tasks) do desenvolvimento está na aba Issues (https://github.com/ElderSam/employees_app/issues)
 
+
+OBS: para esta aplicação funcionar é necessário ter o Node, NPM e Yarn instalado
