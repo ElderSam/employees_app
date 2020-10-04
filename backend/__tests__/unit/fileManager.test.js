@@ -34,10 +34,8 @@ describe('Testa funções do arquivo fileManager.js', () => {
     ]
 
     it('Testa função save()', () => {    
-        arquivo.save(content);
-        //const readJSON = require('./../../employees.test.json'); OBS: este jeito de ler um arquivo é a pior maneira porque lê uma única vez e guarda o valor como um 'cache'
-        const readJSON = arquivo.load();
-        expect(readJSON).toStrictEqual(content);
+        res = arquivo.save(content);
+        expect(res).toBe('Arquivo salvo!');
     });
 
     it('Testa função load()', () => {
@@ -47,4 +45,3 @@ describe('Testa funções do arquivo fileManager.js', () => {
         arquivo.save([]); //esvazia o JSON
     });  
 })
-

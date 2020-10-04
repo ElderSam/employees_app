@@ -20,9 +20,18 @@ function load() {
 
 const save = (content) => {
     const contentString = JSON.stringify(content)
-    return fs.writeFileSync(contentFilePath, contentString/*, err => { //salva o conteúdo em disco
-        console.log(err || 'Arquivo salvo!')
-    }*/)
+
+    try{
+        fs.writeFileSync(contentFilePath, contentString, 'utf-8')   
+        
+        res = 'Arquivo salvo!'
+        console.log(res)
+        return res;
+
+    }catch(error) {
+        console.log('Erro ao salvar arquivo JSON', error);
+        return error
+    }      
 }
 
 module.exports = {
