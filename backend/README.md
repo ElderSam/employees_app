@@ -1,11 +1,13 @@
 # Backend
     Desenvolvido em Node.js
 
-# Inicia o servidor;
-Abrir o terminal, entrar nesta pasta (backend/) e dar o comando;
+# Instalar dependências do projeto
+    Abrir o terminal, entrar nesta pasta (backend/) e dar o comando;
+    $ npm install
 
-$ npm run dev
-/*depois é só abrir o navegador e colocar o endereço do servidor: http://localhost:3001*/
+# Inicia o servidor;
+    $ npm run dev
+    /*depois é só abrir o navegador e colocar o endereço do servidor: http://localhost:3001*/
 
 # Realizar os testes unitários e de integração
 $ npm test
