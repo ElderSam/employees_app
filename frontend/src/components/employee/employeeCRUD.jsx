@@ -341,6 +341,8 @@ export default class EmployeeCrud extends Component {
                             Anterior
                     </button>
 
+                    <span class='text-secondary'>Página <strong>{page}</strong> de {listInfo.pages}</span>
+
                     <button disabled={page === listInfo.pages}
                         onClick={() => this.nextPage()}>
                             Próxima
