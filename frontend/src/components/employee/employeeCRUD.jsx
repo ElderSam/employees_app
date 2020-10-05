@@ -15,7 +15,7 @@ const initialState = {
     list: [],
     listInfo: {}, //vlTotal, pagina atual, etc
     page: 1,
-    searchForm: { field: '',  value: '' },
+    searchForm: { field: '',  value: '', SalarioMin: false, SalarioMax: false },
     reqFilterUrl: false
 }
 
@@ -93,6 +93,20 @@ export default class EmployeeCrud extends Component {
 
     updateFieldSearch(event) { //para campos de filtro/pesquisa
         const searchForm = { ...this.state.searchForm}
+
+        if(event.target.name === 'field') {
+
+            if(event.target.value === 'Salario') { //se o campo para pesquisa é por faixa salarial
+                
+                searchForm.SalarioMin = true
+               
+            }else {
+                searchForm.SalarioMin = false
+
+            }
+
+        }
+
         searchForm[event.target.name] = event.target.value
         this.setState({ searchForm })
     }
@@ -259,11 +273,19 @@ export default class EmployeeCrud extends Component {
     }
 
     filterTable() {
-        const {field, value} = this.state.searchForm
+        const { field, value, SalarioMin, SalarioMax } = this.state.searchForm
             let reqFilterUrl = false
 
-        if((field !== '') && (value !== '')) { //se preencheu os campos para pesquisar
-            reqFilterUrl = `&${field}=${value}`
+        if((field !== '') && (((parseFloat(SalarioMin)) && (SalarioMax !== '')) || (value !== ''))) { //se preencheu os campos para pesquisar
+            
+            if(SalarioMin) {
+                let auxMin = SalarioMin;
+                if(SalarioMin === true) auxMin = 0;
+
+                reqFilterUrl = `&SalarioMin=${auxMin}&SalarioMax=${SalarioMax}` //filtra por faixa salarial
+            }else {
+                reqFilterUrl = `&${field}=${value}`
+            }
         }else {
             alert('escolha um campo e insira um valor válido para pesquisar!')
         }
@@ -273,7 +295,7 @@ export default class EmployeeCrud extends Component {
     }
 
     renderFilter() {
-        const { field, value } = this.state.searchForm
+        const { field, value, SalarioMin, SalarioMax } = this.state.searchForm
 
         return (  
             <div className="row bg-dark text-white mt-2"> {/*-- FILTRO --*/}
@@ -288,7 +310,7 @@ export default class EmployeeCrud extends Component {
                         <option value="Nome">Nome</option>
                         <option value="Cpf">Cpf</option>
                         <option value="Cargo">Cargo</option>
-                        <option value="Salario">Salario</option>
+                        <option value="Salario">Salario (faixa salarial)</option>
                         <option value="UfNasc">UfNasc</option>
                         <option value="DataCad">DataCad</option>
                         <option value="Status">Status</option>
@@ -296,12 +318,30 @@ export default class EmployeeCrud extends Component {
                 </div>
 
                 <div className="row">
-                    <div className="ml-1">
+                    <div className="ml-1" hidden={SalarioMin === false}>
                         <label for="value">pesquisar por:</label>
                         <input type="text"
                             className="form-control"
                             name="value"
                             value={ value }
+                            onChange={e => this.updateFieldSearch(e)}/>
+                    </div>
+
+                    <div className="ml-1" hidden={(SalarioMin === true) || (SalarioMin === '')}>
+                        <label for="SalarioMin">mínimo:</label>
+                        <input type="number"
+                            className="form-control"
+                            name="SalarioMin"
+                            value={ SalarioMin }
+                            onChange={e => this.updateFieldSearch(e)}/>
+                    </div>
+
+                    <div className="ml-1" hidden={!SalarioMin}>
+                        <label for="SalarioMax">máximo:</label>
+                        <input type="number"
+                            className="form-control"
+                            name="SalarioMax"
+                            value={ SalarioMax }
                             onChange={e => this.updateFieldSearch(e)}/>
                     </div>
                    
