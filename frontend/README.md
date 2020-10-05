@@ -20,7 +20,6 @@ Instruções;
     
         employee/ 
             no arquivo 'employeeCRUD.jsx' tem a lista de funcionários e o formulário para inserir e atualizar
-            no arquivo 'employeeChart.jsx' tem o nosso gráfico de funcionários por estado
         home/ é onde tem a nossa página inicial
         template/ onde tem os componentes do template (Logo, Header, Nav, Main & Footer)
 
