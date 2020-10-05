@@ -251,6 +251,10 @@ export default class EmployeeCrud extends Component {
         axios.delete(`${baseUrl}/${employee.Cpf}`).then(resp => {
             const list = this.getUpdatedList(employee, false) //passar null como parâmetro para não adicionar o elemento atual na lista
             this.setState({ list })
+            alert('funcionário excluído com sucesso! :)')
+
+        }).catch(err => {
+            alert('Não foi possível excluir o funcionário! :(')
         })
     }
 
