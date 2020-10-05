@@ -8,6 +8,25 @@ Instruções;
         npm start
 
 ------------------------
+# Estrutura do projeto
+
+    os arquivos desenvolvidos estão na pasta src/
+
+    dentro da pasta src/ o próximo arquivo a ser lido quando a aplicação React inicia é o index.js, onde é renderizado o nosso componente App
+
+    na pasta main são renderizados o nosso logo, navbar, o menu lateral o conteúdo e o rodapé de cada página. O conteúdo é definido através de 'Roteamento' no arquivo Routes.jsx
+
+    a pasta components é onde tem todos os nosso componentes que são renderizados quando necessário. Os components estão nas pastas;
+    
+        employee/ 
+            no arquivo 'employeeCRUD.jsx' tem a lista de funcionários e o formulário para inserir e atualizar
+            no arquivo 'employeeChart.jsx' tem o nosso gráfico de funcionários por estado
+        home/ é onde tem a nossa página inicial
+        template/ onde tem os componentes do template (Logo, Header, Nav, Main & Footer)
+
+------------------------
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
