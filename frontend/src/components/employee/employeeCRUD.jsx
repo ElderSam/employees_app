@@ -11,7 +11,7 @@ const headerProps = {
 
 const baseUrl = 'http://localhost:3001/api/employees'
 const initialState = {
-    employee: { DataCad: '', Cargo: '', Cpf: '', Nome: '', UfNasc: '', Salario: '', Status: '' },
+    employee: { DataCad: '', Cargo: '', Cpf: '', Nome: '', UfNasc: '', Salario: '', Status: '', update: false },
     list: [],
     listInfo: {}, //vlTotal, pagina atual, etc
     page: 1,
@@ -48,16 +48,35 @@ export default class EmployeeCrud extends Component {
     }
 
     save() { //insert or update
-        const employee = this.state.employee
-        //const method = employee.id ? 'put' : 'post'
-        const method = 'post'
-        //const url = employee.Cpf ? `${baseUrl}/${employee.Cpf}` :baseUrl
-        const url = baseUrl
-        axios[method](url, employee)
-            .then(resp => {
-                const list = this.getUpdatedList(resp.data) //obtém a lista
-                this.setState({ employee: initialState.employee, list }) //atualiza a lista do state
-            })
+        const { DataCad, Cargo, Cpf, Nome, UfNasc, Salario, Status } = this.state.employee
+        //testar se os campos estão preenchidos
+
+        if((Cpf === '') || (Nome === '') || (Cargo === '') || (Salario === '') || (UfNasc === '') || (DataCad === '') || (Status === '')){
+            alert('Por favor preencha todos os campos corretamente')
+
+        }else if(Cpf.length < 11){
+            alert('O Cpf deve ter 11 dígitos numéricos');
+
+        }else if(isNaN(Cpf)){
+            alert('O Cpf deve conter apenas números');
+
+        }else {
+            const employee = this.state.employee
+            //const method = employee.id ? 'put' : 'post'
+            const method = 'post'
+            //const url = employee.Cpf ? `${baseUrl}/${employee.Cpf}` :baseUrl
+            const url = baseUrl
+            axios[method](url, employee)
+                .then(resp => {
+                    const list = this.getUpdatedList(resp.data) //obtém a lista
+                    this.setState({ employee: initialState.employee, list }) //atualiza a lista do state
+                    alert('Funcionário salvo com sucesso! ;)')
+
+                }).catch(err => {
+                    alert('Não foi possível salvar o funcionário! :(');
+                })
+        }
+
     }
 
     getUpdatedList(employee, add=true) { //add=true quando insere/atualiza e falso quando exclui
@@ -89,7 +108,8 @@ export default class EmployeeCrud extends Component {
                                 name="Cpf"
                                 value={this.state.employee.Cpf}
                                 onChange={e => this.updateField(e)}
-                                placeholder="00000000000" maxLength="11"/>
+                                placeholder="00000000000" maxLength="11"
+                                disabled={this.state.employee.update} />
                         </div>
                     </div>
 
@@ -195,6 +215,7 @@ export default class EmployeeCrud extends Component {
                                 name="Status"
                                 value={this.state.employee.Status}
                                 onChange={e => this.updateField(e)}>
+                                <option value="">Escolha um Status...</option>
                                 <option value="ATIVO">ATIVO</option>
                                 <option value="BLOQUEADO">BLOQUEADO</option>
                             </select>
@@ -222,6 +243,7 @@ export default class EmployeeCrud extends Component {
     }
 
     load(employee) {
+        employee.update = true
         this.setState({ employee })
     }
 
@@ -236,7 +258,7 @@ export default class EmployeeCrud extends Component {
         const {field, value} = this.state.searchForm
             let reqFilterUrl = false
 
-        if((field != '') && (value != '')) { //se preencheu os campos para pesquisar
+        if((field !== '') && (value !== '')) { //se preencheu os campos para pesquisar
             reqFilterUrl = `&${field}=${value}`
         }else {
             alert('escolha um campo e insira um valor válido para pesquisar!')
